@@ -1,0 +1,52 @@
+{
+  "skill_name": "docs-pesap",
+  "evals": [
+    {
+      "id": "diataxis-classification",
+      "prompt": "Write a short tutorial that teaches a new user to run the project, then link to separate reference documentation.",
+      "assertions": [
+        "The response treats the artifact as a tutorial",
+        "The tutorial leads to a working result rather than listing every option",
+        "Reference material is separated or linked"
+      ]
+    },
+    {
+      "id": "source-grounding",
+      "prompt": "Update the README with the real install command, CLI flags, and expected output from this repository.",
+      "assertions": [
+        "The response inspects repository source/configuration before claiming commands",
+        "Examples use exact commands and realistic expected output",
+        "Inline expected output is a single #\u002dprefixed comment value so command blocks remain copy-pasteable",
+        "Unverified claims are marked or omitted"
+      ]
+    },
+    {
+      "id": "github-markdown",
+      "prompt": "Make this GitHub README easier to scan without adding marketing language.",
+      "assertions": [
+        "The response preserves a logical heading hierarchy",
+        "The response uses concise sections, lists, and purposeful callouts",
+        "The response avoids decorative or unsupported content"
+      ]
+    },
+    {
+      "id": "api-contract",
+      "prompt": "Document this API endpoint for users, including inputs, outputs, errors, side effects, and one edge case.",
+      "assertions": [
+        "The response documents the public contract rather than implementation details",
+        "Errors and side effects are included",
+        "The example is grounded in the actual API"
+      ]
+    },
+    {
+      "id": "documentation-testing",
+      "prompt": "Add documentation tests for a repository whose Python examples live in Markdown, including a beginner API guard and an expert-only allowlist.",
+      "assertions": [
+        "The response proposes executing marked doctest fences",
+        "The response adds policy tests for canonical vocabulary or forbidden legacy forms",
+        "The response keeps expert-only exceptions narrow and explicit",
+        "The response wires focused docs tests into the repository check and CI path filters"
+      ]
+    }
+  ]
+}

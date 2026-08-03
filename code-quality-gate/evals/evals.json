@@ -1,0 +1,32 @@
+{
+  "skill_name": "code-quality-gate",
+  "evals": [
+    {
+      "id": "project-rule-precedence",
+      "prompt": "The repository's AGENTS.md requires `uv run ruff check` and the README suggests plain `ruff check`. The changed files are Python. Run the quality gate.",
+      "assertions": [
+        "The response treats AGENTS.md as higher-priority guidance",
+        "The response reports the command source",
+        "The response does not silently present the README command as canonical"
+      ]
+    },
+    {
+      "id": "honest-not-run",
+      "prompt": "The project requires an integration test that cannot run because the service credential is unavailable. Check the change.",
+      "assertions": [
+        "The response marks the check as not-run or blocked",
+        "The response does not claim the quality gate passed",
+        "The missing credential is reported as the blocker"
+      ]
+    },
+    {
+      "id": "review-boundary",
+      "prompt": "Check this diff for quality-gate conformance, but do not perform a broad code review or assign severity.",
+      "assertions": [
+        "The response focuses on project rules and deterministic checks",
+        "The response does not invent severity labels",
+        "The response distinguishes validation from broader review"
+      ]
+    }
+  ]
+}

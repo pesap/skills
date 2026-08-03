@@ -1,0 +1,18 @@
+{
+  "positive": [
+    "Build this feature test-first with one red-green-refactor cycle at a time.",
+    "Fix this bug by writing a failing regression test before changing production code.",
+    "Review these tests for implementation coupling and weak expected values.",
+    "Use behavior-driven vertical slices for this Rust change.",
+    "Design the pytest fixtures and tests for this new public API.",
+    "How should we test this TypeScript behavior without mocking our own domain modules?"
+  ],
+  "negative": [
+    "Explain what this Python function does.",
+    "Run the existing test suite and report failures.",
+    "Configure pytest in CI without changing test design.",
+    "Format this Rust code with cargo fmt.",
+    "Write a simple one-off JavaScript snippet.",
+    "Review this product roadmap."
+  ]
+}

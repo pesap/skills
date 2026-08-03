@@ -1,0 +1,12 @@
+[
+  {"id":"positive-1","query":"Run a quality gate on this diff against the repository guidelines.","should_trigger":true},
+  {"id":"positive-2","query":"Check whether these changes follow the project's coding conventions and run the required checks.","should_trigger":true},
+  {"id":"positive-3","query":"Do the pre-review lint, typecheck, and test validation for this branch.","should_trigger":true},
+  {"id":"positive-4","query":"There are no written code guidelines. Apply the fallback quality checklist to this change.","should_trigger":true},
+  {"id":"positive-5","query":"Verify that the changed files comply with the nested AGENTS.md instructions.","should_trigger":true},
+  {"id":"negative-1","query":"Review this PR for bugs and assign severity levels.","should_trigger":false},
+  {"id":"negative-2","query":"Give me a merge recommendation after a comprehensive architecture review.","should_trigger":false},
+  {"id":"negative-3","query":"Perform a full security audit of the application.","should_trigger":false},
+  {"id":"negative-4","query":"Implement the requested feature.","should_trigger":false},
+  {"id":"negative-5","query":"Run git history diagnostics and find repository hotspots.","should_trigger":false}
+]
