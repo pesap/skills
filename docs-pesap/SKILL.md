@@ -1,7 +1,7 @@
 ---
 name: docs-pesap
 description:
-  Pesap's standard for accurate, task-oriented technical documentation. Use
+  pesap's standard for accurate, task-oriented technical documentation. Use
   when creating or revising READMEs, API documentation, tutorials, how-to
   guides, explanations, setup, troubleshooting, migration, release notes, or
   GitHub-rendered Markdown. Apply when documentation must be grounded in the
@@ -9,7 +9,7 @@ description:
 license: MIT
 ---
 
-# Docs Pesap
+# Docs pesap
 
 Write documentation that lets the intended reader complete a real task and
 trust the result. Project terminology, source code, configuration, and existing

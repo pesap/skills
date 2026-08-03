@@ -1,7 +1,7 @@
 ---
 name: tdd-pesap
 description:
-  Pesap's opinionated test-first development discipline for behavior-focused,
+  pesap's opinionated test-first development discipline for behavior-focused,
   public-interface tests and small vertical slices. Use when implementing a
   feature or bugfix with tests, designing testable interfaces, reviewing test
   quality, or applying red-green-refactor in Python, TypeScript, Rust, C, or
@@ -10,7 +10,7 @@ description:
 license: MIT
 ---
 
-# TDD Pesap
+# TDD pesap
 
 Use tests to discover and protect observable behavior, not to freeze internal
 implementation. Work in small vertical slices and keep the feedback loop tight.

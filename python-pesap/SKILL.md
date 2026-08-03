@@ -10,7 +10,7 @@ description: >
 license: MIT
 ---
 
-# Python Pesap
+# Python pesap
 
 ## Use when
 

@@ -1,6 +1,6 @@
 # Python testing
 
-Use pytest conventions while applying the core TDD Pesap doctrine.
+Use pytest conventions while applying the core TDD pesap doctrine.
 
 - Prefer public package APIs, CLI entry points, or service boundaries over
   private helpers.

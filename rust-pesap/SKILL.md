@@ -1,7 +1,7 @@
 ---
 name: rust-pesap
 description:
-  Pesap's opinionated Rust engineering standard for feature work, bug fixes,
+  pesap's opinionated Rust engineering standard for feature work, bug fixes,
   refactors, performance changes, and hardening. Use when implementing or
   reviewing Rust code, reducing panic or unsafe risk, strengthening types and
   error contracts, or validating Cargo projects. Project conventions take
@@ -9,7 +9,7 @@ description:
 license: MIT
 ---
 
-# Rust Pesap
+# Rust pesap
 
 Apply the repository's established conventions first. When the repository does
 not define a convention, use the standards below.
