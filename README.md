@@ -6,16 +6,20 @@ and evaluations.
 
 ## Quick start
 
-Clone the collection and inspect the available skills:
+Use Vercel's [Skills CLI](https://github.com/vercel-labs/skills) to inspect and
+install skills:
 
 ```bash
-git clone git@github.com:pesap/skills.git
-cd skills
-find . -maxdepth 1 -mindepth 1 -type d | sort
+npx skills add pesap/skills --list
+npx skills add pesap/skills --skill cli-ux --global
 ```
 
-Copy the skill directories you want into the skills directory used by your
-agent.
+Install additional skills by repeating `--skill`, or install the complete
+collection with:
+
+```bash
+npx skills add pesap/skills --all
+```
 
 ## Skills
 
