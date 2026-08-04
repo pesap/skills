@@ -1,0 +1,4 @@
+interface:
+  display_name: "Audit Pi Session"
+  short_description: "Audit Pi HTML session exports"
+  default_prompt: "Use $audit-pi-session to audit this Pi HTML session export with entry-level evidence."

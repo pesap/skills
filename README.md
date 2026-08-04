@@ -23,6 +23,7 @@ npx skills add pesap/skills --all
 
 ## Skills
 
+- `audit-pi-session` — branch-aware audits of Pi HTML session exports
 - `bash-script` — Bash scripting practices
 - `cli-ux` — opinionated CLI and agent-interaction design
 - `code-quality-gate` — project-guideline and change-quality checks
