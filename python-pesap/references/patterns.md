@@ -1,9 +1,25 @@
-# Python syntax do / don't
+# Python patterns
 
-Use these examples to enforce the python-pesap contract without bloating
-`SKILL.md`.
+Read this reference only when a concrete good/bad pattern would remove
+ambiguity. Apply the repository's established pattern when it differs.
 
-## 1) Function signatures (subject positional, config keyword-only)
+## Contents
+
+- [Function signatures](#function-signatures)
+- [Structured returns](#structured-returns)
+- [Exception handling](#exception-handling)
+- [Async code](#async-code)
+- [Logging and output](#logging-and-output)
+- [Naming and entrypoints](#naming-and-entrypoints)
+- [NumPy array bundles](#numpy-array-bundles)
+- [JSON and table rows](#json-and-table-rows)
+- [Useful helper returns](#useful-helper-returns)
+- [Benchmark scripts](#benchmark-scripts)
+- [Memory measurement](#memory-measurement)
+- [`rust_ok` results](#rust_ok-results)
+- [Type boundaries](#type-boundaries)
+
+## Function signatures
 
 ```python
 # ✅ Do
@@ -23,7 +39,7 @@ def resolve_path(raw_path: Path, folder_path: Path, must_exist: bool = True):
     ...
 ```
 
-## 2) Structured returns (single typed object)
+## Structured returns
 
 ```python
 # ✅ Do
@@ -48,7 +64,7 @@ def parse_records(raw: str):
     return records, rejected
 ```
 
-## 3) Exception handling (narrow, explicit)
+## Exception handling
 
 ```python
 # ✅ Do
@@ -80,7 +96,7 @@ except Exception:
     return None
 ```
 
-## 4) Async syntax (never block event loop)
+## Async code
 
 ```python
 # ✅ Do
@@ -94,7 +110,7 @@ import time
 time.sleep(0.1)
 ```
 
-## 5) Logging and output (project convention, loguru fallback)
+## Logging and output
 
 ```python
 # ✅ Do
@@ -113,7 +129,7 @@ failures += 1
 print(f"  ✗ failed (exit {result.returncode})")
 ```
 
-## 6) Naming and entrypoint style (explicit, non-magical)
+## Naming and entrypoints
 
 ```python
 # ✅ Do
@@ -149,7 +165,7 @@ if __name__ == "__main__":
     main()
 ```
 
-## 7) NumPy array bundles: named contracts, not positional tuples
+## NumPy array bundles
 
 ```python
 # ✅ Do
@@ -196,7 +212,7 @@ def arrays_from_system(system: System) -> tuple[
     ...
 ```
 
-## 8) JSON/table rows: TypedDict, not bare dicts
+## JSON and table rows
 
 ```python
 # ✅ Do
@@ -224,7 +240,7 @@ def build_rows(path: Path) -> list[dict[str, Any]]:
     ...
 ```
 
-## 9) Helpers return values instead of success-by-None
+## Useful helper returns
 
 ```python
 # ✅ Do
@@ -257,7 +273,7 @@ def write_summary(path: Path, rows: list[ResultRow]) -> None:
     ...
 ```
 
-## 10) Benchmark scripts: compute returns data, entrypoint prints
+## Benchmark scripts
 
 ```python
 # ✅ Do
@@ -289,7 +305,7 @@ def run_benchmark(...) -> None:
     print(json.dumps(summary))
 ```
 
-## 11) Memory measurement uses Torc, not Python probes
+## Memory measurement
 
 Use the repository's reproducible benchmark harness for memory claims.
 
@@ -305,7 +321,7 @@ import tracemalloc
 PY
 ```
 
-## 12) `rust_ok` without bare unwrap
+## `rust_ok` results
 
 ```python
 # ✅ Do
@@ -320,7 +336,7 @@ payload = result.ok()
 payload = parse_payload(raw).unwrap()
 ```
 
-## 13) No casts or `object` contracts
+## Type boundaries
 
 ```python
 # ✅ Do

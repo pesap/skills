@@ -12,6 +12,26 @@
       ]
     },
     {
+      "id": "existing-toolchain",
+      "prompt": "Fix a Python bug in this existing Poetry project. Keep its package workflow intact.",
+      "expected_output": "A focused bug fix that follows the repository's configured tooling rather than converting the project.",
+      "assertions": [
+        "The response inspects pyproject.toml and the repository's existing commands before editing",
+        "The response does not introduce uv, requirements files, or lockfile changes as unrelated migration work",
+        "The response reports a targeted validation command from the configured toolchain"
+      ]
+    },
+    {
+      "id": "python-code-review",
+      "prompt": "Review this Python pull request for type, error-contract, and regression-test risks.",
+      "expected_output": "An evidence-based Python review that evaluates public behavior, contracts, and focused validation without inventing defects.",
+      "assertions": [
+        "The response inspects the changed code, nearby tests, and repository guidance before making findings",
+        "The response distinguishes confirmed defects from unverified risks or assumptions",
+        "The response evaluates public behavior, error contracts, typing, and regression coverage rather than private implementation details alone"
+      ]
+    },
+    {
       "id": "typed-return-contract",
       "prompt": "Refactor this Python helper that returns a long tuple and sometimes None.",
       "expected_output": "A typed return contract that avoids loose tuples and success-by-None.",

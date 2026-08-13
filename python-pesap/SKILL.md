@@ -1,113 +1,92 @@
 ---
 name: python-pesap
 description: >
-  Deliver Python feature work, bug fixes, refactors, tests, and production
-  hardening with uv-based tooling, explicit typing, public-behavior pytest
-  validation, and strict quality gates. Use when users ask to implement, debug,
-  clean up, type-harden, package, benchmark, document, or test Python code, even
-  if they only mention pytest, Ruff, ty, uv, async, logging, Pydantic,
-  dataclasses, scripts, or maintainability.
+  Apply pesap's Python engineering standard to repository-integrated feature
+  work, bug fixes, refactors, code review, tests, type/data-contract changes,
+  CLI scripts, benchmarks, and production hardening. Use when implementing,
+  debugging, reviewing, testing, or maintaining Python code with uv, pytest,
+  Ruff, ty, Pydantic, dataclasses, async code, logging, or NumPy. Prefer
+  repository conventions and configured tooling; use uv for new or unconfigured
+  projects.
 license: MIT
 ---
 
 # Python pesap
 
-## Use when
+Apply repository instructions, package conventions, and configured commands
+first. Use this skill's defaults only when the repository does not decide.
 
-- Python feature work, bug fixes, refactors, tests, or production hardening.
-- The user wants stronger typing, clearer APIs, safer errors, better tests, or
-  maintainable Python scripts/packages.
-- The task mentions pytest, uv, Ruff, ty, async Python, logging, Pydantic,
-  dataclasses, CLI scripts, memory/performance, or benchmark Python code.
-
-## Avoid when
-
-- The task is not Python-centric.
-- The request is planning-only, docs-only, review-only, or status-only.
-- The user wants a tiny standalone snippet with no repo integration or
-  validation.
-
-## Quick router
-
-Before editing, identify the task's center of gravity and load the repository's
-own guidance for that area:
-
-- Root-cause debugging or flaky behavior: establish a reproduce → hypothesize
-  → test → verify loop before changing code.
-- Test-first or behavior-first work: use one red-green-refactor cycle per
-  observable behavior.
-- Pytest fixtures, plugins, parametrization, properties, or CI strategy: read
-  the relevant local pytest configuration and existing test patterns.
-- Pydantic, dataclass, configuration, or schema boundaries: identify the data
-  owner and validate the public contract.
-- Public API compatibility: inspect versioning policy and existing compatibility
-  tests before changing exported behavior.
-- Pre-review validation: run the repository's canonical formatter, linter,
-  type-checker, and test commands.
-- Standalone scripts, shell wrappers, and benchmarks: follow their local
-  metadata, output, and reproducibility conventions.
 ## Workflow
 
-1. Restate assumptions, acceptance criteria, and the smallest validation target.
-2. Inspect local toolchain, validation commands, and touched code paths before
-   editing.
-3. Reuse canonical package models, public APIs, and repo-managed commands.
-4. Implement the smallest root-cause change.
-5. Add or update focused validation: pytest for package behavior, or explicit
-   non-pytest gates for scripts, benchmarks, and docs-only artifacts.
-6. Run validation through `uv run ...`, `just`, or repo-configured commands when
-   available.
-7. Summarize changed files, validation evidence, residual risks, and any
-   follow-up routing.
+1. Read local instructions, package or script metadata, tool configuration,
+   package layout, nearby code, and existing tests before editing.
+2. Define the observable behavior, data/error contract, acceptance criteria, and
+   smallest meaningful validation target. Reproduce a reported failure first
+   when practical.
+3. Reuse the package's public APIs, domain models, fixtures, commands, and
+   logging conventions. Do not create parallel local abstractions.
+4. Implement the smallest root-cause change. Keep generated files, dependency
+   changes, lockfile changes, and unrelated cleanup out of scope.
+5. Add or update focused public-behavior validation. For a bug fix, add a
+   regression test when the repository supports one.
+6. Run the narrowest relevant checks first, then required broader checks. Report
+   exact commands, results, assumptions, and remaining gaps.
 
-## Core rules
+For test-first work, apply one red-green-refactor cycle per observable behavior;
+also use `tdd-pesap` when test design is the task's center of gravity.
 
-- Prefer `uv` + `pyproject.toml`; avoid Poetry, pip-only venv flows, or
-  `requirements.txt` unless asked.
-- Add explicit type hints to new or materially changed Python code.
-- Prefer semantic/domain types over raw `str`, `float`, `dict[str, Any]`,
-  `object`, or casual `typing.cast`.
-- Reuse canonical package/infrasys models before creating local models.
-- Public helpers return useful values; avoid success-by-`None`.
-- Use `rust_ok.Result[T, E]` at recoverable boundaries where callers branch;
-  never bare-unwrap `rust_ok` results in live code.
-- Keep `try` blocks small and catch specific documented exceptions.
-- Test public behavior, not private helpers.
-- Use reusable pytest fixtures/plugins instead of copied private test helpers.
-- Follow the project's logging convention first. If none exists, use `loguru`
-  and keep library logging opt-in.
-- Put CLI parsing and process-exit behavior in `if __name__ == "__main__"`; keep
-  reusable business logic in typed helpers.
-- Add comments only for non-obvious rationale, invariants, units, generated-file
-  boundaries, compatibility constraints, or operational gotchas.
+## Core defaults
 
-## References to load on demand
+- Preserve the project's configured package manager, lockfile, and task runner.
+  For a new package, use `uv` with `pyproject.toml`; for a repeatable standalone
+  script, use reproducible `uv` script metadata where suitable. Run managed tools
+  through `uv run`.
+- Add explicit type hints to new or materially changed code. Prefer the
+  strongest available domain type, named structured return, `Protocol`, union,
+  or generic over loose tuples, `object`, `dict[str, Any]`, or casual casts.
+- Make success and failure contracts explicit. At recoverable boundaries, use
+  the project's established error model; never bare-unwrap `rust_ok` results.
+  Keep `try` blocks small and catch documented, specific exceptions.
+- Test public behavior rather than private helpers. Reuse fixture plugins or
+  `conftest.py` instead of copying test helpers.
+- Keep CLI parsing and process exit at the `__main__` boundary. Put reusable
+  business logic in typed helpers that return useful values.
+- Follow existing logging first. If no convention exists, use the pesap
+  `loguru` fallback and keep library logging opt-in. Reserve `print(...)` for a
+  CLI or script's stdout contract.
+- Comment non-obvious rationale, invariants, units, compatibility constraints,
+  generated boundaries, and operational gotchas; do not narrate obvious code or
+  leave breadcrumbs after moves.
 
-| Reference                             | Load when                                                                                                                                |
-| ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| `DELIVERY_RULES.md`                   | Applying this skill to implementation, review, or hardening work                                                                         |
-| `STRICT_RULES.md`                     | Enforcing strict project rules or touching returns, errors, logging, memory, public APIs, tests, CLI, comments, or data-model boundaries |
-| `SYNTAX_DO_DONT.md`                   | Concrete good/bad Python examples would prevent ambiguity                                                                                |
-| `NUMPY_DOCSTRING_STYLE.md`            | Adding or changing public Python docstrings/examples                                                                                     |
-| `scripts/check_pedantic_ruff.sh`      | User requests strict lint hardening                                                                                                      |
-| `scripts/check_pedantic_ty.sh`        | User requests strict type hardening                                                                                                      |
+## Reference router
 
-Read `SKILL.md` first. Load extra files only when their detail is relevant.
+Load only the reference that matches the work; do not preload all references.
+
+| Work center | Read |
+| --- | --- |
+| Implementation, debugging, refactoring, tests, async work, performance, or validation | [delivery and validation](references/delivery.md) |
+| Public APIs, return/error contracts, types, dependencies, logging, CLI, or data-model boundaries | [contracts and boundaries](references/contracts.md) |
+| A concrete Python pattern would prevent ambiguity | [patterns](references/patterns.md) |
+| Public docstrings, doctest-comment examples, or NumPy array contracts | [docstrings](references/docstrings.md) |
+| A strict lint or type-hardening sweep | [pedantic Ruff](scripts/check_pedantic_ruff.sh) or [pedantic ty](scripts/check_pedantic_ty.sh) |
 
 ## Quality gates
 
-- Prefer repo-configured `ruff`, `pytest`, and `ty` settings for normal work.
-- Use targeted tests for touched paths unless broader validation is requested.
-- For benchmark/experiment folders, avoid pytest unless the repo/user expects
-  it; prefer `ruff`, `py_compile`, doctest, bounded smoke runs, workflow
-  dry-runs, or full benchmark runs when needed.
-- Treat pedantic Ruff/ty scripts as signal generators, not universal blockers.
+- Prefer repository-configured formatter, linter, type-checker, and test
+  commands. Use targeted checks for touched paths unless broader validation is
+  requested or required.
+- For benchmark or experiment folders, use the validation that matches the
+  artifact: lint, `py_compile`, doctest, bounded smoke run, workflow dry-run,
+  or the project's benchmark harness. Do not add pytest by default.
+- Treat pedantic Ruff and ty scripts as signal generators, not universal
+  blockers. Investigate findings and distinguish new defects from deliberate
+  project policy.
 
 ## Output
 
 - Assumptions and approach.
-- File-level changes.
-- Validation commands and results.
+- Files and public behaviors changed.
+- Validation commands and exact results.
 - Residual risks, follow-ups, or delegation notes.
 
 ## Evals

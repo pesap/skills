@@ -1,6 +1,18 @@
-# NumPy docstring style (required)
+# NumPy-style docstrings
 
-Use this style for every new or modified function/method.
+Read this reference when adding or changing public Python docstrings, examples,
+or NumPy array contracts. Follow a repository's established docstring style
+first. When this pesap fallback applies, use it for every new or modified public
+function or method.
+
+## Contents
+
+- [Minimum required content](#minimum-required-content)
+- [Template](#template)
+- [Rules for examples](#rules-for-examples)
+- [NumPy array contracts](#numpy-array-contracts)
+- [Example style](#example-style)
+- [Avoid](#avoid)
 
 ## Minimum required content
 

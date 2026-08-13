@@ -15,6 +15,16 @@
     "should_trigger": true
   },
   {
+    "id": "pos-existing-tooling-1",
+    "query": "Fix this Python bug in an existing Poetry project without changing its package workflow.",
+    "should_trigger": true
+  },
+  {
+    "id": "pos-review-1",
+    "query": "Review this Python pull request for type, error-contract, and regression-test risks.",
+    "should_trigger": true
+  },
+  {
     "id": "pos-4",
     "query": "Harden this Python package before production.",
     "should_trigger": true
