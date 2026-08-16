@@ -51,8 +51,8 @@ Open only the reference whose trigger matches the task:
   success checks, and the learning ladder.
 - [API documentation](references/api-docs.md) — public contracts, errors,
   side effects, limits, and generated references.
-- [GitHub Markdown](references/github-markdown.md) — heading structure, links,
-  callouts, tables, diagrams, and accessible rendering.
+- [GitHub Markdown](references/github-markdown.md) — headings, links, alerts,
+  collapsed sections, tables, diagrams, badges, and accessible rendering.
 - [Documentation testing](references/documentation-testing.md) — executable
   examples, vocabulary guards, fixtures, and docs CI.
 
