@@ -1,33 +1,20 @@
 ---
 name: good-api
 description:
-  "Evaluate or design developer-facing APIs using the learning-ladder model:
-  flexible first, gradual second, convenient third. Use when users ask whether
-  an API, SDK, CLI, library, schema, or interface is good, easy to learn,
-  ergonomic, composable, beginner-friendly, enterprise-ready, or needs API
-  design review."
+  "Evaluate or design developer-facing APIs, SDKs, CLIs, libraries, schemas,
+  and interfaces with the learning ladder: flexible first, gradual second,
+  convenient third. Use for ergonomics, composability, onboarding, layered
+  APIs, beginner defaults, expert escape hatches, or enterprise integration.
+  Do not use for implementation-only debugging with no interface question."
 license: MIT
 ---
 
-## Use when
+# API design
 
-- Reviewing API, SDK, CLI, library, schema, or interface design.
-- Designing a new API surface or simplifying an existing one.
-- Diagnosing developer friction: hard onboarding, awkward second use case, poor
-  composition, or expert escape hatches.
-- Comparing convenience wrappers, defaults, layered APIs, and lower-level
-  primitives.
+Assess how users grow from first success to advanced composition without
+learning contradictory semantics or ejecting from the API.
 
-## Avoid when
-
-- The task is only implementation debugging with no API/interface design
-  question.
-- The user wants style preferences unrelated to developer learning or
-  capability.
-- Security, performance, compatibility, or domain correctness clearly dominates
-  API ergonomics.
-
-## Instructions
+## Core method
 
 1. Name the target users: beginner, novice, expert, and
    enterprise/integration-heavy if relevant.
@@ -45,13 +32,12 @@ license: MIT
 5. Treat convenience wrappers as packaging over understandable primitives, not
    substitutes for a flexible model.
 
-## Progressive disclosure
+## Reference router
 
-- Read `references/ladder-model.md` when you need the full vocabulary, failure
-  modes, or source-derived questions.
-- Use `evals/trigger-prompts.json` when refining trigger behavior.
-- Use `evals/evals.json` when checking output quality for non-trivial API review
-  cases.
+- Read [the ladder model](references/ladder-model.md) when the full vocabulary,
+  failure modes, or source-derived review questions are needed.
+- Use `evals/trigger-prompts.json` only when tuning recognition and
+  `evals/evals.json` only when grading non-trivial API reviews.
 
 ## Output
 

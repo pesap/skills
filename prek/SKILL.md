@@ -1,27 +1,18 @@
 ---
 name: prek
 description:
-  Use this skill when working with Git hooks, pre-commit automation, or CI lint
-  pipelines using `prek` (Rust drop-in replacement for pre-commit). Apply when
-  users ask to speed up hooks, migrate from `pre-commit`, debug hook execution,
-  configure skip/include behavior, or wire hook checks into CI, even if they say
-  "pre-commit", "hooks", or "lint checks" instead of "prek".
+  Run, debug, optimize, or migrate Git hook and CI lint automation with `prek`,
+  the Rust replacement for pre-commit. Use for hook installation, execution,
+  updates, skip/include behavior, cache performance, migration from
+  `pre-commit`, or CI wiring, even when users say only "pre-commit", "hooks",
+  or "lint checks". Do not use for one-off lint/test commands with no hook
+  orchestration or repository hook configuration.
 license: MIT
 ---
 
-## Use when
+# prek
 
-- User asks to run/fix/update pre-commit style hooks.
-- User wants faster hook execution in CI or local dev.
-- User asks to migrate from `pre-commit` to `prek`.
-- User asks about skipping hooks (`SKIP=...`) or selecting hooks.
-- User asks about hook install/uninstall behavior in git repos/worktrees.
-
-## Avoid when
-
-- Task is unrelated to hooks/lint/format automation.
-- User asks for one-off lint/test commands without hook orchestration.
-- Project does not use `prek` or `pre-commit` configs.
+Preserve hook coverage and behavior before optimizing runner performance.
 
 ## Defaults
 

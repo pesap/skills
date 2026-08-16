@@ -1,5 +1,11 @@
 # Issues
 
+## Contents
+
+- [Issue labels](#issue-labels)
+- [Native sub-issues](#native-sub-issues-parentchild)
+- [Native issue dependencies](#native-issue-dependencies)
+
 Create an issue with labels:
 
 ```bash

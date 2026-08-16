@@ -1,38 +1,41 @@
 ---
 name: gitlab
-description:
-  Use this skill when the user needs GitLab terminal workflows (MRs, issues,
-  pipelines, releases, .gitlab-ci.yml debugging, variables/rules/artifacts),
-  even if they do not explicitly mention GitLab or glab CLI.
+description: >
+  Operate GitLab from the terminal with `glab`: inspect or update merge
+  requests, issues, pipelines, jobs, and releases; create or debug
+  `.gitlab-ci.yml`; and improve variables, rules, caches, artifacts, and CI
+  performance. Use for requests such as "check this MR" or "why did the
+  pipeline fail". Do not use for GitHub or deep Kubernetes-agent work.
 license: MIT
 ---
 
-## Use when
+# GitLab
 
-- User asks to manage GitLab MRs/issues/pipelines/releases via terminal.
-- User asks to create/debug `.gitlab-ci.yml`.
-- User asks about CI variables, stages/jobs/rules, cache, artifacts, or pipeline
-  failures.
+Resolve the project and target first, then gather remote evidence with `glab`
+before proposing or making changes.
 
-## Avoid when
+## Task router
 
-- GitHub operations outside GitLab.
-- Raw GitLab API workflows beyond practical `glab api` usage.
-- Deep Kubernetes agent configuration outside repo CI scope.
+Open only the reference whose trigger matches the task:
 
-## Workflow
+- [GitLab commands](references/commands.md) — authentication, merge requests,
+  issues, releases, repository operations, environment, and mutation safety.
+- [Pipelines](references/pipelines.md) — run and job triage, `.gitlab-ci.yml`,
+  `rules`, `needs`, cache, artifacts, matrices, and CI performance.
 
-1. Confirm target project/group and desired outcome.
-2. Gather evidence with `glab` status/list/view commands.
-3. Diagnose issue or optimization opportunity.
-4. Apply/propose minimal corrective change.
-5. Validate with follow-up `glab` checks and summarize risk.
+## Core workflow
 
-See [REFERENCE.md](./REFERENCE.md) for command reference and CI patterns.
+1. Confirm project/group, MR/issue/pipeline/release target, and desired outcome.
+2. Read the matching reference and inspect repository guidance or CI files that
+   govern the target.
+3. Gather current state with `glab` list, view, status, or API output.
+4. Diagnose from concrete MR state, discussion threads, jobs, logs, artifacts,
+   variables, rules, or pipeline configuration.
+5. Apply the smallest reliable action or configuration change.
+6. Verify with follow-up `glab` inspection or a pipeline rerun when appropriate;
+   do not infer success from a mutation command alone.
 
 ## Output
 
-- Command evidence (key `glab` output snippets)
-- Findings and recommended actions
-- Proposed/implemented pipeline or workflow changes
-- Validation status and next steps
+Report key `glab` evidence, findings or actions, pipeline/configuration changes,
+verification status, and remaining risks or next steps.

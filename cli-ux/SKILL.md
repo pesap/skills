@@ -2,35 +2,19 @@
 name: cli-ux
 description:
   Design, review, or improve command-line interfaces for strong UX,
-  accessibility, composability, and automation. Use when users ask about CLI
-  design, command trees, flags, help text, onboarding, errors, streams, exit
-  codes, progress output, color, completions, interactive modes, screen-reader
-  accessibility, or CLI best practices.
+  accessibility, composability, and automation. Use for command trees, flags,
+  help, onboarding, errors, streams, exit codes, progress, color, completions,
+  non-interactive modes, screen readers, and CLI best practices. Do not use for
+  full-screen TUI design or shell implementation with no CLI surface change.
 license: MIT
 ---
 
-## Use when
+# CLI UX
 
-- Designing or reviewing a CLI, command tree, subcommand, flag set, or terminal
-  output contract.
-- Improving onboarding, `--help`, examples, man pages, shell completions, or
-  install/discovery flow.
-- Making CLI errors actionable with validation, recovery suggestions, and stable
-  error codes.
-- Balancing human-friendly output with scriptability, `stdin`/`stdout`/`stderr`,
-  exit codes, and structured formats.
-- Auditing accessibility: screen readers, `NO_COLOR`, `TERM=dumb`, non-TTY
-  output, animation, tables, ASCII art, or plain modes.
+Treat arguments, streams, output formats, errors, and exit codes as a public
+interface for both people and automation.
 
-## Avoid when
-
-- The task is a full TUI design rather than command-line utility behavior.
-- The user only needs shell scripting internals rather than CLI interface
-  behavior.
-- Product/domain correctness dominates interface design and no CLI surface is
-  being changed.
-
-## Instructions
+## Core contract
 
 1. Start from the terminal user journey: install, discover command name,
    tab-complete, run first command, ask for help, then compose/automate.
@@ -57,12 +41,12 @@ license: MIT
 12. For destructive operations, include dry-run/preview and explicit
     confirmation controls.
 
-## Progressive disclosure
+## Reference router
 
-- Read `references/cli-ux-principles.md` for source-derived design principles
-  and tradeoffs.
-- Use `evals/trigger-prompts.json` when refining trigger behavior.
-- Use `evals/evals.json` when checking CLI UX review quality.
+- Read [CLI UX principles](references/cli-ux-principles.md) when source-derived
+  principles or trade-offs need more detail.
+- Use `evals/trigger-prompts.json` only when tuning recognition and
+  `evals/evals.json` only when grading review quality.
 
 ## Output
 

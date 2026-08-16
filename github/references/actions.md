@@ -1,6 +1,19 @@
 # GitHub Actions optimization
 
-## Workflow triggers & concurrency
+## Contents
+
+- [Workflow triggers and concurrency](#workflow-triggers-and-concurrency)
+- [Dependency caching](#dependency-caching)
+- [Cache key strategies](#cache-key-strategies)
+- [Matrix strategy](#matrix-strategy)
+- [Runner sizing](#runner-sizing)
+- [Job dependencies and parallelism](#job-dependencies-and-parallelism)
+- [Artifacts](#artifacts)
+- [Anti-patterns](#anti-patterns-to-avoid)
+- [Security](#security)
+- [Optimization checklist](#workflow-optimization-checklist)
+
+## Workflow triggers and concurrency
 
 **Concurrency control (prevent duplicate runs):**
 
@@ -90,7 +103,7 @@ strategy:
 | `ubuntu-latest-4-cores` | 4    | 16GB | Build, test             |
 | `ubuntu-latest-8-cores` | 8    | 32GB | Heavy compilation       |
 
-## Job dependencies & parallelism
+## Job dependencies and parallelism
 
 ```yaml
 # Bad: unnecessary sequential

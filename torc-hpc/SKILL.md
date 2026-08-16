@@ -1,139 +1,98 @@
 ---
 name: torc-hpc
-version: 0.4.4
-description:
-  "Run, debug, install, and operate Torc workflows across local, remote-worker,
-  and Slurm/HPC modes. Use when users ask how to install the latest Torc
-  release, run Torc locally, submit Slurm workflows, configure remote workers,
-  use invocation scripts, set `TORC_API_URL`, collect logs/artifacts, debug
-  failed runs, run a specific code version remotely from an exact Git
-  SHA/worktree, or handle HPC Git/LFS/module issues without rsyncing the whole
-  repo."
-license: MIT
+description: >
+  Design, run, debug, install, and operate Torc workflows across local,
+  remote-worker, and Slurm/HPC modes. Use when a user asks about Torc workflow
+  YAML, explicit files/jobs/dependencies/resources/scheduler actions, local
+  smoke tests, Slurm submission, remote workers, invocation scripts,
+  TORC_API_URL, logs/artifacts, exact-SHA remote runs, or HPC Git/LFS/module
+  failures.
 ---
 
-## Use when
+# torc-hpc
 
-- User wants to run a Torc workflow locally for smoke testing or development.
-- User needs to install or refresh the latest Torc release binary before running
-  local or remote orchestration commands.
-- User wants to detect an HPC profile, inspect partitions, or submit Torc
-  workflows to Slurm/HPC with `torc hpc detect`, `torc hpc partitions`,
-  `torc slurm generate`, and `torc submit`.
-- User wants to use or debug Torc remote workers over SSH.
-- User is wiring or debugging `invocation_script` wrappers, modules, conda, or
-  `TORC_API_URL`.
-- User wants to inspect logs, status, resource data, or failure behavior for
-  Torc runs.
-- User wants to configure `git push hpc` style code transport through a remote
-  bare Git repository for reproducible HPC runs.
-- User wants to run a specific branch/tag/commit remotely from a prepared remote
-  checkout or per-run worktree.
-- User needs cleanup guidance for per-run worktrees or temporary refs after
-  versioned remote runs.
-- User needs to work around Git LFS, module discovery, or load-balanced HPC
-  login entrypoints for Torc runs.
+Use Torc as the workflow graph and scheduler boundary. Prefer a declarative
+workflow whose durable files make every stage, dependency, and output visible.
+For R2X-style work, the normal shape is:
 
-## Avoid when
+```text
+archive/input -> materialize -> parse -> transform -> translate -> export -> validate
+```
 
-- Task is generic Slurm guidance with no Torc workflow angle.
-- Task is solver/model formulation debugging rather than Torc
-  runtime/setup/operations.
-- User needs site policy or cluster admin decisions that must come from
-  operators.
+Keep each durable system boundary as a named Torc `FileSpec`; an R2X JSON
+entrypoint and its adjacent `_time_series` directory are one artifact bundle.
+Put resource profiles in `resource_requirements`, scheduler policy in
+`slurm_schedulers`, and allocation/cleanup behavior in `actions`. This is the
+preferred pattern for reproducibility, local smoke tests, and Slurm runs.
 
-## Instructions
+## Choose the execution path
 
-1. First isolate the Torc mode:
-   - local standalone or local server/client
-   - remote workers over SSH
-   - Slurm/HPC submission
-   - manual remote command fallback
-   - versioned remote code execution from a prepared remote checkout/worktree
-2. Prefer the smallest runnable smoke test before full workloads.
-3. Prefer Torc-native flows over ad hoc shell orchestration:
-   - local: `torc -s --in-memory run <workflow>` or documented local
-     server/client flow
-   - remote workers: `torc remote ...`
-   - Slurm/HPC: `torc slurm generate ... -o <generated>.yaml` then
-     `torc submit <generated>.yaml`
-4. Keep site setup in an `invocation_script`, startup script, or job prologue
-   instead of embedding environment setup into every command.
-5. For remote/tunneled use, verify the correct `TORC_API_URL` and network
-   reachability before blaming workflow logic. If the remote/shared Torc server
-   is reachable from local `torc`, query workflow status locally; do not SSH
-   just to run `torc status`.
-6. For reproducible remote runs, code travels by Git commit/ref and data stays
-   remote. Use a reachable Git remote such as `hpc`, fetch or materialize the
-   exact SHA on the cluster, and require jobs to reference data already present
-   on the remote filesystem.
-7. Use the site load-balanced login entrypoint when one exists; do not hardcode
-   direct login nodes unless the user explicitly asks.
-8. Do not run build/solve/smoke workload commands on login nodes. Login-node
-   work is limited to lightweight checks, module discovery, Git/worktree
-   preparation, Torc binary installation when site policy allows user-managed
-   tools, and Torc/Slurm submission. Let Slurm allocations run `uv`, builds, and
-   solver work.
-9. When Torc is missing and a user-managed binary is appropriate, use
-   `scripts/install-latest-torc.sh` to install the latest release from GitHub
-   into `TORC_INSTALL_DIR` or `~/.local/bin`.
-10. When the user wants `git push hpc` setup, use
-    `scripts/setup-hpc-git-remote.sh` to create/reuse the remote bare repo and
-    configure the local remote.
-11. When the user wants to run a specific code version remotely, use
-    `scripts/prepare-git-run.sh` to create an isolated exact-SHA worktree under
-    the run directory. Do **not** run jobs from the receiving bare repo or from
-    a shared mutable checkout.
-12. Treat `scripts/run-remote.sh` as a remote command runner for an existing
-    remote workdir, not as a repo-sync mechanism.
-13. Use `scripts/push-run-cleanup.sh` when the user wants one local command to
-    push HEAD or an explicit SHA to the remote bare repo, create an exact-SHA
-    worktree, run a lightweight repo script there, fetch logs/artifacts, and
-    clean up the temporary worktree.
-14. Use preflight checks before launch; use cleanup helpers only when versioned
-    remote runs create temporary worktrees/refs.
-15. After failures, inspect Torc-native signals first: workflow/job status,
-    logs, results, resource data, then fallback shell diagnostics.
-16. Do not rely on shell-style `${VAR:-default}` interpolation inside workflow
-    `command` or `env`; prefer concrete values or pre-rendered files before
-    submission.
+| Need | Path | Read next |
+|---|---|---|
+| Design or review a declarative workflow | Explicit file/job graph, parameters, resources, actions | [workflow-design.md](./references/workflow-design.md) |
+| Install or refresh Torc | User-managed binary or site-approved installation | [local.md](./references/local.md) |
+| Syntax or wrapper smoke test | `torc create --dry-run`, then standalone `torc run` | [local.md](./references/local.md) |
+| Submit a self-contained Slurm workflow | Source already declares `slurm_schedulers` and `schedule_nodes` | [slurm.md](./references/slurm.md) |
+| Add site-specific Slurm policy | `torc slurm generate ...` then `torc submit` | [slurm.md](./references/slurm.md) |
+| Run workers over SSH | `torc remote ...` | [remote.md](./references/remote.md) |
+| Run an exact code revision remotely | Git bare remote plus isolated worktree | [versioned-runs.md](./references/versioned-runs.md) |
+| Clean an exact-SHA run | Temporary worktree/ref cleanup | [versioned-runs.md](./references/versioned-runs.md) |
+| Diagnose a failed run | Torc state first, then scheduler and payload logs | [failure-signatures.md](./references/failure-signatures.md) |
 
-## Progressive disclosure
+Do not preload every reference. Read the design reference before authoring a
+workflow; otherwise load only the reference for the selected mode or failure.
 
-Read only what fits the mode:
+## Standard operating sequence
 
-- `references/runbook.md` — mode-by-mode operating guide: local, remote workers,
-  Slurm, versioned remote runs, cleanup
-- `references/failure-signatures.md` — common Torc/HPC failure patterns and
-  fixes
-- `scripts/doctor.sh` / `scripts/doctor.cmd` — preflight checks for commands,
-  env vars, and optional remote reachability
-- `scripts/install-latest-torc.sh` — install the latest Torc GitHub release
-  binary into `TORC_INSTALL_DIR` or `~/.local/bin`
-- `scripts/setup-hpc-git-remote.sh` — create/reuse a remote bare Git repo and
-  configure local `git push hpc` code transport
-- `scripts/prepare-git-run.sh` — create an isolated exact-SHA remote worktree
-  under a run directory
-- `scripts/deploy-git-torc-slurm.sh` — prepare an exact-SHA worktree and submit
-  a Torc Slurm workflow from it when the commit is already present in the remote
-  bare repo
-- `scripts/push-run-cleanup.sh` — push HEAD or an explicit SHA to the remote
-  bare repo, prepare an exact-SHA worktree, run a lightweight repo script there,
-  fetch logs/artifacts, and clean up
-- `scripts/run-remote.sh` / `scripts/run-remote.cmd` — fallback manual remote
-  command runner for an existing remote workdir
-- `scripts/cleanup-worktree.sh` / `scripts/cleanup-worktree.cmd` — cleanup
-  helper for temporary worktrees/refs in versioned remote runs
-- `evals/trigger-prompts.json`, `evals/trigger-prompts-train.json`,
-  `evals/trigger-prompts-validation.json` — trigger QA fixtures for this skill
-- `evals/evals.json` — output-quality eval scaffold for mode selection, command
-  choice, and boundary discipline
+1. **Scope the mode and boundary.** Decide whether this is local execution,
+   self-contained Slurm, generated Slurm, remote workers, or an exact-SHA run.
+   Keep model/solver debugging separate from Torc orchestration.
+2. **Design the graph before running it.** Name inputs, intermediate states,
+   final artifacts, resource profiles, and cleanup scope. Use file edges rather
+   than hidden ordering or live pipes.
+3. **Preflight the graph.** Run `torc create --dry-run workflow.yaml`; use
+   `torc -f json create --dry-run workflow.yaml` when the expanded plan needs
+   machine-readable inspection. Confirm parameter expansion and job/file edges.
+4. **Smoke test cheaply.** Use a unique temporary output directory and
+   `torc -s --in-memory run ... --max-parallel-jobs 1` before allocating HPC
+   resources. Do not use canonical artifact directories for a smoke test.
+5. **Submit through Torc.** For a source spec without scheduler policy, use
+   `torc slurm generate ... | torc submit --no-prompts -`. For a self-contained
+   spec with explicit scheduler actions, use `torc submit --no-prompts` on the
+   source spec directly and pass an explicit output directory.
+6. **Inspect native state first.** Check workflow/job status, results, resource
+   data, and Torc output before SSHing for cluster details. A completed Slurm
+   allocation does not prove the payload succeeded.
+7. **Preserve evidence and clean narrowly.** Keep logs, metadata, and requested
+   outputs. Remove only run-scoped materialized data or temporary worktrees;
+   never delete durable outputs as a generic cleanup step.
+
+## Non-negotiable boundaries
+
+- Do not run builds, dependency installs, solvers, or workload smoke tests on
+  login nodes. Use login nodes for lightweight checks, Git/worktree preparation,
+  and Torc/Slurm submission only.
+- Keep module, conda, and site setup in an `invocation_script` or job prologue;
+  do not repeat it in every command.
+- Do not rely on shell forms such as `${VAR:-default}` inside workflow
+  `command` or `env`. Use Torc parameters, concrete paths, or a pre-rendered
+  file.
+- Use durable `input_files`/`output_files` edges. For R2X, use native `-i` and
+  `-o` JSON boundaries; do not add a conversion or live-pipe layer.
+- Move code by Git commit/ref, not by rsyncing a whole repository. Keep large
+  data on the remote filesystem and run from an exact-SHA worktree.
+- Prefer site load-balanced login entrypoints. Do not hardcode a direct login
+  node unless the user explicitly requests it.
+- Treat helper scripts as narrow tools: `run-remote.sh` runs a command in an
+  existing remote workdir; it does not synchronize or materialize a repository.
 
 ## Output
 
-- Target Torc mode
-- Exact commands/env used
-- Blocking dependency or environment gap
-- Smallest repro or smoke-test result
-- Next fix or verified working path
-- Remote artifact/log location when applicable
+Report:
+
+- selected Torc mode and workflow boundary;
+- files/jobs/resources/actions changed or invoked;
+- exact commands and relevant environment values;
+- preflight or smoke-test evidence;
+- blocking environment or scheduler gaps; and
+- output, log, metadata, and cleanup locations.

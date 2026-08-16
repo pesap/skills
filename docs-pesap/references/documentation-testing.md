@@ -4,6 +4,13 @@ Documentation is a tested product surface, not a prose-only artifact. Use the
 repository's own commands first. The practices below are the generalized
 pattern from [NatLabRockies/arco](https://github.com/NatLabRockies/arco/tree/main).
 
+## Contents
+
+- [Test executable examples](#test-executable-examples)
+- [Test documentation policy, not just syntax](#test-documentation-policy-not-just-syntax)
+- [Wire checks into the delivery path](#wire-checks-into-the-delivery-path)
+- [Documentation/code coupling](#documentationcode-coupling)
+
 ## Test executable examples
 
 Keep examples copy-pasteable as well as testable. For command examples, show a

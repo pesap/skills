@@ -17,6 +17,22 @@
       }
     },
     {
+      "name": "durable-r2x-workflow-design",
+      "prompt": "Review this R2X Torc YAML with explicit files, jobs, resource requirements, scheduler actions, and cleanup.",
+      "expected": {
+        "mustMention": ["FileSpec", "input_files", "output_files", "resource_requirements", "schedule_nodes"],
+        "mustNotMention": ["live pipe", "rsync the whole repo"]
+      }
+    },
+    {
+      "name": "self-contained-slurm-spec",
+      "prompt": "My workflow already has slurm_schedulers and schedule_nodes actions. Should I submit it directly or generate another Slurm spec?",
+      "expected": {
+        "mustMention": ["submit", "directly", "create --dry-run"],
+        "mustNotMention": ["always generate another spec"]
+      }
+    },
+    {
       "name": "hpc-profile-discovery",
       "prompt": "How do I see whether Torc knows my HPC system and what partitions it can use?",
       "expected": {

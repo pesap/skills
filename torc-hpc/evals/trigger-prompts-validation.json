@@ -6,7 +6,8 @@
     "Show me the smallest Torc local smoke test before I try the Slurm path.",
     "Explain when to use torc remote workers versus Slurm for this Torc workflow.",
     "Help me collect Torc worker logs after a remote run finishes.",
-    "I need the right TORC_API_URL format for a remote server behind a tunnel."
+    "I need the right TORC_API_URL format for a remote server behind a tunnel.",
+    "My reeds_r2x.yaml has explicit slurm_schedulers and schedule_nodes actions. Should I submit it directly or generate another Slurm spec?"
   ],
   "negative": [
     "Review my Python class design.",

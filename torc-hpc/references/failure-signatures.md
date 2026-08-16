@@ -77,15 +77,33 @@ Fix:
 - on login nodes run only lightweight checks, Git/worktree preparation,
   `torc submit`, `squeue`, and status inspection
 
-## Submitted the wrong workflow file
+## Workflow has no schedulable action
 
-Meaning: the source spec was submitted instead of the generated Slurm-backed
-spec.
+Meaning: the spec has no usable `schedule_nodes` action, or its trigger/job
+selectors do not arm for the current graph.
 
 Fix:
 
-- submit the generated file from `torc slurm generate -o ...`
-- keep source and generated filenames distinct
+- run `torc create --dry-run workflow.yaml` and inspect the action summary;
+- for a self-contained spec, declare `slurm_schedulers` and a matching
+  `schedule_nodes` action;
+- for a portable spec, generate scheduler policy with
+  `torc slurm generate ... -o <generated>.yaml`; and
+- submit the generated spec, or pipe it directly to `torc submit -` when it
+  does not need review.
+
+## Submitted the wrong workflow file
+
+Meaning: the source spec was submitted when the workflow needed generated
+Slurm scheduler policy, or a generated file was submitted after its source
+had changed.
+
+Fix:
+
+- keep source and generated filenames distinct;
+- regenerate after changing resource requirements or parameters; and
+- submit the generated file, or use the direct
+  `torc slurm generate ... | torc submit -` pipeline.
 
 ## Local client cannot drive the remote/tunneled server correctly
 

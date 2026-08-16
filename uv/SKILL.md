@@ -1,58 +1,47 @@
 ---
 name: uv
 description:
-  Use uv for Python scripts with reproducible dependencies via `uv run`, `uv
-  init --script`, `uv add --script`, and `uv lock --script`. Use when users ask
-  to run Python scripts, add script dependencies, replace pip/venv flows, or
-  make standalone scripts reproducible.
+  Run standalone Python scripts reproducibly with `uv run`, PEP 723 inline
+  dependencies, `uv init --script`, `uv add --script`, and `uv lock --script`.
+  Use when replacing `pip`/manual-venv script flows, adding script dependencies,
+  locking a script, or making it executable. For package projects, follow the
+  repository's existing project and package-manager conventions instead.
 license: MIT
 ---
 
-## Trigger conditions
+# uv scripts
 
-- User asks how to run Python scripts, install script deps, or avoid manual venv
-  management.
-- User mentions `pip install`, `python script.py`, `venv`, or script
-  reproducibility.
-- User wants migration from legacy Python command flow to uv.
+First distinguish a standalone script from a package project. Preserve an
+existing project's configured package manager and lockfile unless migration is
+explicitly requested.
 
-## Use when
+## Core workflow
 
-- Running scripts with or without dependencies.
-- Adding script dependencies inline (PEP 723 metadata).
-- Locking script dependency resolution for reproducibility.
-- Building executable scripts with uv shebang.
+1. Run a script with `uv run`; add `--no-project` when the script must not use or
+   install the surrounding project.
+2. For a repeatable standalone script, initialize PEP 723 metadata with
+   `uv init --script` and add dependencies with `uv add --script`.
+3. Use `uv run --with ...` only for disposable, one-off dependencies.
+4. Lock repeatable resolution with `uv lock --script`; use
+   `tool.uv.exclude-newer` only when the reproducibility policy requires it.
+5. For an executable script, use `#!/usr/bin/env -S uv run --script`.
+6. Run the script and report the Python version, project interaction, dependency
+   assumptions, lock behavior, and exact result.
 
-## Avoid when
+## Command router
 
-- User/repo explicitly requires Poetry, conda, pipenv, or raw pip.
-- Task is not Python script/dependency workflow related.
-- Native extension packaging requires another backend/toolchain.
+Open only the command reference needed for the task:
 
-## Instructions
+- [`uv run`](run.md) — execution, project interaction, inline metadata, and
+  temporary dependencies.
+- [`uv init --script`](init-script.md) — create a standalone metadata-bearing
+  script.
+- [`uv add --script`](add-script.md) — add or remove inline dependencies.
+- [`uv lock --script`](lock-script.md) — create and use a script lockfile.
 
-1. Detect context: standalone script vs project (`pyproject.toml`).
-2. Prefer `uv run` for execution; use `--no-project` when in a project and
-   script should not install/use the project.
-3. Prefer inline script metadata for repeatable scripts:
-   - initialize with `uv init --script`
-   - add deps with `uv add --script`
-4. Use `uv run --with ...` for ad-hoc one-off dependencies only.
-5. For reproducibility, use `uv lock --script` and optionally
-   `tool.uv.exclude-newer`.
-6. For executable scripts, use shebang: `#!/usr/bin/env -S uv run --script`.
-7. Report exact commands, assumptions, and caveats (project interaction, Python
-   version, lockfile behavior).
-
-## Command references
-
-- `run.md` (`uv run`)
-- `init-script.md` (`uv init --script`)
-- `add-script.md` (`uv add --script`)
-- `lock-script.md` (`uv lock --script`)
+Use `evals/trigger-prompts.json` only when tuning recognition.
 
 ## Output
 
-- Context (project vs standalone)
-- Commands used
-- Validation result + blockers
+Report standalone-versus-project context, commands used, validation result, and
+remaining blockers or reproducibility caveats.
