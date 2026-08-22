@@ -96,6 +96,22 @@
         ],
         "mustNotMention": ["leave stale worktrees behind"]
       }
+    },
+    {
+      "name": "local-action-vs-materialize-job",
+      "prompt": "Should I use a Torc action or a job to untar an archive before my R2X parser?",
+      "expected": {
+        "mustMention": ["action", "materialize job", "dependency edge"],
+        "mustNotMention": ["inline Python"]
+      }
+    },
+    {
+      "name": "r2x-matrix-output-isolation",
+      "prompt": "Design a local Torc workflow for ReEDS solve years 2029 and 2050 with weather years 2012 and 2018.",
+      "expected": {
+        "mustMention": ["parameters", "use_parameters", "unique", "paths"],
+        "mustNotMention": ["same output path for every combination"]
+      }
     }
   ]
 }

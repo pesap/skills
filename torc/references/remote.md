@@ -52,11 +52,11 @@ list.
 
 ## Manual fallback
 
-Use `skills/torc-hpc/scripts/run-remote.sh` only for a non-Torc command that
+Use `skills/torc/scripts/run-remote.sh` only for a non-Torc command that
 must run in an already prepared remote workdir:
 
 ```bash
-skills/torc-hpc/scripts/run-remote.sh \
+skills/torc/scripts/run-remote.sh \
   --host user@cluster \
   --remote-root /scratch/$USER/torc-runs \
   --workdir /projects/repo/exact-worktree \

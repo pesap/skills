@@ -153,5 +153,5 @@ cat <<EOF
 Next:
   git push $REMOTE_NAME HEAD:refs/heads/<run-branch>
   SHA=\$(git rev-parse HEAD)
-  skills/torc-hpc/scripts/prepare-git-run.sh --host $HOST --remote-git-dir $REMOTE_GIT_DIR --sha \$SHA --run-root /scratch/\$USER/torc-runs/<run-id>
+  skills/torc/scripts/prepare-git-run.sh --host $HOST --remote-git-dir $REMOTE_GIT_DIR --sha \$SHA --run-root /scratch/\$USER/torc-runs/<run-id>
 EOF

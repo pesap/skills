@@ -79,7 +79,7 @@ Use the same tool that installed the skills.
 | [`r2x-core`](r2x-core/) | Building r2x translators, plugins, rules, and data stores |
 | [`sdom`](sdom/) | Running and extending the Storage Deployment Optimization Model |
 | [`sienna-platform`](sienna-platform/) | Routing work across the Sienna Julia ecosystem |
-| [`torc-hpc`](torc-hpc/) | Designing and operating local, remote, and Slurm Torc workflows |
+| [`torc`](torc/) | Designing and operating local, remote, and Slurm Torc workflows |
 
 <details>
 <summary><strong>How agents navigate this repository</strong></summary>

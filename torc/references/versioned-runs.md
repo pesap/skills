@@ -9,7 +9,7 @@ bare repository or a shared mutable checkout.
 Use the site's load-balanced login hostname:
 
 ```bash
-skills/torc-hpc/scripts/setup-hpc-git-remote.sh \
+skills/torc/scripts/setup-hpc-git-remote.sh \
   --host user@kestrel.hpc.nlr.gov \
   --remote-git-dir /scratch/$USER/git/myrepo.git \
   --remote-name hpc
@@ -25,7 +25,7 @@ Publish an exact revision and create a run-scoped worktree:
 git push hpc HEAD:refs/heads/runs/<run-id>
 SHA=$(git rev-parse HEAD)
 
-skills/torc-hpc/scripts/prepare-git-run.sh \
+skills/torc/scripts/prepare-git-run.sh \
   --host user@kestrel.hpc.nlr.gov \
   --remote-git-dir /scratch/$USER/git/myrepo.git \
   --sha "$SHA" \
@@ -50,7 +50,7 @@ If the commit is already present in the remote bare repository, use the bundled
 wrapper:
 
 ```bash
-skills/torc-hpc/scripts/deploy-git-torc-slurm.sh \
+skills/torc/scripts/deploy-git-torc-slurm.sh \
   --host user@kestrel.hpc.nlr.gov \
   --remote-git-dir /scratch/$USER/git/myrepo.git \
   --sha "$SHA" \
@@ -74,7 +74,7 @@ For a lightweight repository script that submits Torc and fetches selected
 artifacts in one local command, use:
 
 ```bash
-skills/torc-hpc/scripts/push-run-cleanup.sh \
+skills/torc/scripts/push-run-cleanup.sh \
   --host user@kestrel.hpc.nlr.gov \
   --remote-git-dir /scratch/$USER/git/myrepo.git \
   --script scripts/submit_torc.sh \
@@ -92,7 +92,7 @@ Clean only temporary worktrees and metadata after outputs are safe. Preview
 first:
 
 ```bash
-skills/torc-hpc/scripts/cleanup-worktree.sh \
+skills/torc/scripts/cleanup-worktree.sh \
   --host user@kestrel.hpc.nlr.gov \
   --remote-git-dir /scratch/$USER/git/myrepo.git \
   --run-root /scratch/$USER/torc-runs \
@@ -103,7 +103,7 @@ skills/torc-hpc/scripts/cleanup-worktree.sh \
 Execute only after reviewing the dry-run output:
 
 ```bash
-skills/torc-hpc/scripts/cleanup-worktree.sh \
+skills/torc/scripts/cleanup-worktree.sh \
   --host user@kestrel.hpc.nlr.gov \
   --remote-git-dir /scratch/$USER/git/myrepo.git \
   --run-root /scratch/$USER/torc-runs \

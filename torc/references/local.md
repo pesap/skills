@@ -58,7 +58,7 @@ If Torc is missing and a user-managed binary is allowed, use the bundled
 installer rather than hand-writing a download flow:
 
 ```bash
-skills/torc-hpc/scripts/install-latest-torc.sh \
+skills/torc/scripts/install-latest-torc.sh \
   --install-dir "$HOME/.local/bin" --print-path
 export PATH="$HOME/.local/bin:$PATH"
 torc --version
