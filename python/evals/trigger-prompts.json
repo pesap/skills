@@ -85,6 +85,26 @@
     "should_trigger": true
   },
   {
+    "id": "pos-implicit-path",
+    "query": "Fix the empty-record bug in src/importer.py and add a regression test.",
+    "should_trigger": true
+  },
+  {
+    "id": "pos-implicit-test",
+    "query": "tests/test_csv_import.py fails when the skip-empty-records flag is enabled. Fix the implementation.",
+    "should_trigger": true
+  },
+  {
+    "id": "pos-domain-context",
+    "query": "Give this Python CSV import API a required CsvImportContext with typed feature flags and a stable public facade.",
+    "should_trigger": true
+  },
+  {
+    "id": "neg-context-other-language",
+    "query": "Add a typed feature-flag context to this TypeScript API.",
+    "should_trigger": false
+  },
+  {
     "id": "neg-1",
     "query": "Write a Bash deployment script.",
     "should_trigger": false
