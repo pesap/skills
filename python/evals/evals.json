@@ -1,0 +1,99 @@
+{
+  "skill_name": "python",
+  "version": "development-v1",
+  "status": "case-designs-not-executed",
+  "evals": [
+    {
+      "id": "stdlib-csv",
+      "prompt": "Read quoted CSV records and keep the named columns. Do not add unnecessary dependencies.",
+      "expected_output": "A standard-library CSV implementation, with explicit schema checks where required.",
+      "assertions": [
+        "Quoted delimiters and empty input have executable behavior checks",
+        "No dataframe dependency or hand-written delimiter parser is introduced",
+        "CSV parsing is not claimed to validate the application schema"
+      ]
+    },
+    {
+      "id": "domain-context-flags",
+      "prompt": "Add an optional policy to skip empty records during CSV import, preserving quoted empty fields.",
+      "expected_output": "A required keyword-only CsvImportContext with an explicit independent flag and an underscore-free implementation behind the supported facade.",
+      "assertions": [
+        "The public input is positional-only and ctx is required keyword-only",
+        "The context is domain-named and not a mutable global or default instance",
+        "Both flag settings, quoted empty fields, and malformed input are tested",
+        "The flag cannot bypass required parsing or validation",
+        "The supported facade is re-exported through the package __init__.py"
+      ]
+    },
+    {
+      "id": "recoverable-errors",
+      "prompt": "Make decoding and schema validation failures recoverable by callers.",
+      "expected_output": "A rust_ok Result boundary covering both documented failure sources without suppressing unrelated defects.",
+      "assertions": [
+        "Specific decoding and validation failures are returned as Err values",
+        "Error causes and useful context are preserved",
+        "Success and each expected error path have executable checks",
+        "No Result is silently discarded or bare-unwrapped"
+      ]
+    },
+    {
+      "id": "existing-toolchain",
+      "prompt": "Fix this Python bug in an existing Poetry project without changing its package workflow.",
+      "expected_output": "A focused root-cause fix and regression test using the existing commands.",
+      "assertions": [
+        "The reported failure is reproduced or a limitation is explicitly recorded",
+        "No unrelated manager, dependency, or lockfile conversion occurs",
+        "Reported validation matches actual tool evidence"
+      ]
+    },
+    {
+      "id": "logging-ownership",
+      "prompt": "Add Loguru logging to a library while keeping application sink ownership and CLI stdout intact.",
+      "expected_output": "Library logging is opt-in and does not reconfigure the application's sinks.",
+      "assertions": [
+        "Default and opt-in behavior are checked through the library's supported API",
+        "Application sink configuration and CLI data output are preserved",
+        "No custom logging wrapper is added"
+      ]
+    },
+    {
+      "id": "no-payload-command",
+      "prompt": "Implement a fallible command whose successful completion has no meaningful payload.",
+      "expected_output": "Result[None, E] with Ok(None), rather than an invented count, path, or summary.",
+      "assertions": [
+        "The actual side effect and the failure behavior are tested",
+        "No fabricated useful return value is introduced"
+      ]
+    },
+    {
+      "id": "framework-signature",
+      "prompt": "Implement this Python callback using its framework-mandated signature.",
+      "expected_output": "The callback remains callable by the framework; personal API preferences do not break the required protocol.",
+      "assertions": [
+        "A real framework-level invocation validates the callback",
+        "No unnecessary generic context or incompatible argument markers are added"
+      ]
+    },
+    {
+      "id": "strict-checks",
+      "prompt": "Run a strict review of the changed Python paths without modifying files or installing tools.",
+      "expected_output": "Configured checks and a scoped audit with honest failures, no implicit installations, and no blanket suppressions.",
+      "assertions": [
+        "Check commands and results are recorded from tool evidence",
+        "No autofix, install, rule disabling, or blanket ignore changes occur",
+        "Unknown rule warnings cannot be reported as a successful strict type gate",
+        "Pedantic findings are distinguished from configured-policy failures"
+      ]
+    },
+    {
+      "id": "python-review",
+      "prompt": "Review these Python API changes for error contracts, configuration ownership, and missing regression coverage.",
+      "expected_output": "A read-only, evidence-backed review of public behavior and contracts.",
+      "assertions": [
+        "No unrequested implementation changes occur",
+        "Confirmed defects are distinguished from risks requiring validation",
+        "Findings cite inspected code and explain observable consequences"
+      ]
+    }
+  ]
+}

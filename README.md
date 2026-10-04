@@ -65,7 +65,7 @@ Use the same tool that installed the skills.
 | [`docs-pesap`](docs-pesap/) | Writing source-grounded technical documentation |
 | [`good-api`](good-api/) | Reviewing APIs with the flexible/gradual/convenient learning ladder |
 | [`prek`](prek/) | Running and optimizing pre-commit-compatible hooks with `prek` |
-| [`python-pesap`](python-pesap/) | Applying the repository's Python engineering standard |
+| [`python`](python/) | Function-first Python with explicit Result and domain-context contracts (candidate; evaluation pending) |
 | [`rust-pesap`](rust-pesap/) | Applying the repository's Rust engineering standard |
 | [`tdd-pesap`](tdd-pesap/) | Working test-first in small, behavior-focused slices |
 | [`uv`](uv/) | Running reproducible standalone Python scripts with uv |
