@@ -66,7 +66,7 @@ Use the same tool that installed the skills.
 | [`good-api`](good-api/) | Reviewing APIs with the flexible/gradual/convenient learning ladder |
 | [`prek`](prek/) | Running and optimizing pre-commit-compatible hooks with `prek` |
 | [`python`](python/) | Function-first Python with explicit Result and domain-context contracts (candidate; evaluation pending) |
-| [`rust-pesap`](rust-pesap/) | Applying the repository's Rust engineering standard |
+| [`rust`](rust/) | Function-first Rust with explicit ownership, Result, and domain contexts (candidate; evaluation pending) |
 | [`tdd-pesap`](tdd-pesap/) | Working test-first in small, behavior-focused slices |
 | [`uv`](uv/) | Running reproducible standalone Python scripts with uv |
 

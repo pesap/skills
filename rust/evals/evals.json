@@ -1,0 +1,108 @@
+{
+  "skill_name": "rust",
+  "version": "development-v1",
+  "status": "case-designs-not-executed",
+  "evals": [
+    {
+      "id": "stdlib-parser",
+      "prompt": "Parse unsigned counts from lines and report invalid or overflowing values without adding dependencies.",
+      "expected_output": "A focused stdlib parser returning Result with explicit empty-input behavior.",
+      "assertions": [
+        "Empty input, valid boundaries, invalid digits, and overflow have executable checks",
+        "No parser crate, production unwrap, or silent default is introduced",
+        "The implementation does not silently trim input unless the contract requests it"
+      ]
+    },
+    {
+      "id": "domain-context-flags",
+      "prompt": "Add an optional import policy that skips empty count records but still rejects whitespace-only and malformed records.",
+      "expected_output": "An explicit domain-named context with an independent runtime flag, not a Cargo feature or global settings bag.",
+      "assertions": [
+        "Both flag settings and supported interactions have behavior checks",
+        "The same policy snapshot is passed through the operation",
+        "Validation and typed errors remain active with the flag enabled",
+        "Only empty records are skipped"
+      ]
+    },
+    {
+      "id": "public-exports",
+      "prompt": "Hide the implementation layout while preserving a small supported crate-root API.",
+      "expected_output": "Private implementation modules and deliberate pub use exports without redundant forwarding layers.",
+      "assertions": [
+        "An external consumer uses the documented crate-root import",
+        "The implementation module is not importable by the consumer",
+        "Tests do not require widening implementation visibility"
+      ]
+    },
+    {
+      "id": "typed-error-context",
+      "prompt": "Attach an input location to parsing failures while keeping the original error available to callers.",
+      "expected_output": "A specific error preserving the original cause through Error::source().",
+      "assertions": [
+        "A public behavior test checks both location and typed source",
+        "The cause is not flattened to a string or discarded",
+        "An existing error stack is reused rather than replaced without need"
+      ]
+    },
+    {
+      "id": "no-payload-command",
+      "prompt": "Implement a fallible operation whose successful completion has no useful payload.",
+      "expected_output": "Result<(), E> with Ok(()) and observable side-effect and failure tests.",
+      "assertions": [
+        "No invented success count, path, or summary is returned",
+        "Failures cannot look like successful completion"
+      ]
+    },
+    {
+      "id": "feature-aware-validation",
+      "prompt": "Run strict checks without modifying source or lockfiles in a workspace with unsupported combined features.",
+      "expected_output": "Scoped, non-mutating checks using the supported feature matrix, not automatic all-features or all lint groups.",
+      "assertions": [
+        "Source and lockfile contents remain unchanged",
+        "Actual package, target, and feature coverage is reported",
+        "Doctests are not claimed from an all-targets or nextest-only run",
+        "Missing tools and prerequisites are reported without implicit installation"
+      ]
+    },
+    {
+      "id": "msrv-preservation",
+      "prompt": "Fix this Rust library bug while preserving its declared minimum Rust version and current toolchain policy.",
+      "expected_output": "A minimal regression-tested fix using supported syntax, APIs, and attributes.",
+      "assertions": [
+        "The MSRV is inspected before selecting syntax or lint attributes",
+        "No unrelated edition, dependency, or lockfile update occurs",
+        "Unavailable MSRV checks are reported, not fabricated"
+      ]
+    },
+    {
+      "id": "async-ownership",
+      "prompt": "Fix cancellation and lock contention in this async Rust operation without introducing another runtime.",
+      "expected_output": "A focused ownership/lifetime fix with cancellation and cleanup evidence.",
+      "assertions": [
+        "The reported failure has a regression check",
+        "No blocking lock is held across await",
+        "Arc, clones, and mutable globals are not speculative compiler workarounds"
+      ]
+    },
+    {
+      "id": "unsafe-review",
+      "prompt": "Review this unsafe Rust boundary for validity, aliasing, lifetime, and synchronization risks without editing it.",
+      "expected_output": "An evidence-backed read-only review separating confirmed defects from unverified safety obligations.",
+      "assertions": [
+        "Findings identify observable consequences and inspected code",
+        "Passing tests or Miri are not claimed to prove soundness",
+        "No unrequested source changes or tooling installation occurs"
+      ]
+    },
+    {
+      "id": "measured-performance",
+      "prompt": "Reduce allocations in this hot Rust path while preserving behavior and demonstrating the performance effect.",
+      "expected_output": "A focused change with same-workload baseline and candidate measurements.",
+      "assertions": [
+        "Correctness and error behavior are preserved",
+        "Build profile, input, environment, and measurements are reported",
+        "No performance improvement is claimed from inspection alone"
+      ]
+    }
+  ]
+}
