@@ -1,0 +1,94 @@
+[
+  {
+    "id": "pos-1",
+    "query": "Fix this Rust bug with idiomatic error handling.",
+    "should_trigger": true
+  },
+  {
+    "id": "pos-2",
+    "query": "Refactor this Rust module to reduce panics.",
+    "should_trigger": true
+  },
+  {
+    "id": "pos-3",
+    "query": "Harden this Rust code with clippy and tests.",
+    "should_trigger": true
+  },
+  {
+    "id": "pos-4",
+    "query": "Implement this Rust feature with strong types.",
+    "should_trigger": true
+  },
+  {
+    "id": "pos-rs-path",
+    "query": "Fix the out-of-bounds bug in src/parser.rs and add a regression test.",
+    "should_trigger": true
+  },
+  {
+    "id": "pos-cargo-features",
+    "query": "Review Cargo.toml and test the supported feature combinations without editing the lockfile.",
+    "should_trigger": true
+  },
+  {
+    "id": "pos-compiler-error",
+    "query": "Resolve E0502 in this borrow without cloning the entire buffer.",
+    "should_trigger": true
+  },
+  {
+    "id": "pos-clippy",
+    "query": "Fix the Clippy diagnostics in this crate without blanket allows.",
+    "should_trigger": true
+  },
+  {
+    "id": "pos-runtime-context",
+    "query": "Add a domain-specific runtime context to this crate's import API, separate from Cargo features.",
+    "should_trigger": true
+  },
+  {
+    "id": "pos-unsafe-review",
+    "query": "Review the unsafe pointer conversion in src/ffi.rs without modifying code.",
+    "should_trigger": true
+  },
+  {
+    "id": "pos-msrv",
+    "query": "This crate supports Rust 1.74. Fix the regression without changing its MSRV.",
+    "should_trigger": true
+  },
+  {
+    "id": "pos-benchmark",
+    "query": "Benchmark this Rust parser before and after reducing allocations.",
+    "should_trigger": true
+  },
+  { "id": "neg-1", "query": "Fix this Python bug.", "should_trigger": false },
+  {
+    "id": "neg-2",
+    "query": "Review a TypeScript declaration file.",
+    "should_trigger": false
+  },
+  {
+    "id": "neg-3",
+    "query": "Explain Rust ownership generally without changing code.",
+    "should_trigger": false
+  },
+  { "id": "neg-4", "query": "Commit this change.", "should_trigger": false },
+  {
+    "id": "neg-python-result",
+    "query": "Use rust-ok for error handling in this Python function.",
+    "should_trigger": false
+  },
+  {
+    "id": "neg-typescript-context",
+    "query": "Add an immutable context and feature flag to this TypeScript API.",
+    "should_trigger": false
+  },
+  {
+    "id": "neg-github-only",
+    "query": "Open a pull request for the already-pushed rust-skill branch.",
+    "should_trigger": false
+  },
+  {
+    "id": "neg-conceptual-features",
+    "query": "Explain Cargo features conceptually; do not inspect or change a project.",
+    "should_trigger": false
+  }
+]
